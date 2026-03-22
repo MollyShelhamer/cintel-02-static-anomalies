@@ -1,14 +1,14 @@
 """
-anomaly_detector_case.py - Project script (example).
+anomaly_detector_shelhamer.py - Project script.
 
 Author: Molly Shelhamer
 Date: 2026-03-22
 
 Static Data
 
-- Data is taken from a pediatric clinic's patient records.
+- Data is taken from an adult clinic's patient records.
 - The data is static, meaning it does not change over time and is not updated with new records.
-- The clinic works with children from birth to 16 years old.
+- The clinic works with adults over 17 years of age.
 - Each row represents a patient visit with two key measurements:
   - age_years: The patient's age in years.
   - height_inches: The patient's height in inches.
@@ -56,8 +56,8 @@ ARTIFACTS_DIR: Final[Path] = ROOT_DIR / "artifacts"
 
 # === DECLARE GLOBAL CONSTANTS FOR FILE PATHS ===
 
-DATA_FILE: Final[Path] = DATA_DIR / "clinic_data_case.csv"
-OUTPUT_FILE: Final[Path] = ARTIFACTS_DIR / "anomalies_case.csv"
+DATA_FILE: Final[Path] = DATA_DIR / "clinic_data_shelhamer.csv"
+OUTPUT_FILE: Final[Path] = ARTIFACTS_DIR / "anomalies_shelhamer.csv"
 
 
 # === DEFINE THE MAIN FUNCTION ===
@@ -108,29 +108,27 @@ def main() -> None:
     # ----------------------------------------------------
     # STEP 2: DEFINE THRESHOLDS AND DETECT ANOMALIES
     # ----------------------------------------------------
-    # An anomaly is any value greater than the threshold we set.
-    # Domain rule for this example:
-    # Anything above this value is suspicious.
-    LOG.info("Studying children's ages and heights to find anomalies...")
+    # An anomaly is any value outside the threshold we set.
+    LOG.info("Studying adults' ages and heights to find anomalies...")
 
-    # x is age in years, so 16 is the upper limit for kids
-    MAX_REASONABLE_X_VALUE: Final[float] = 16.0
+    # x is age in years, so 18 is the minium reasonable value
+    MIN_REASONABLE_X_VALUE: Final[float] = 18.0
 
-    # y is height in inches, so maybe 6 feet (72 inches) is a reasonable upper limit
-    MAX_REASONABLE_Y_VALUE: Final[float] = 72.0
+    # y is height in inches, so maybe 5 feet (60 inches) is a reasonable limit
+    MIN_REASONABLE_Y_VALUE: Final[float] = 60.0
 
-    LOG.info(f"MAX_REASONABLE_X_VALUE: {MAX_REASONABLE_X_VALUE} in years")
-    LOG.info(f"MAX_REASONABLE_Y_VALUE: {MAX_REASONABLE_Y_VALUE} in inches")
+    LOG.info(f"MIN_REASONABLE_X_VALUE: {MIN_REASONABLE_X_VALUE} in years")
+    LOG.info(f"MIN_REASONABLE_Y_VALUE: {MIN_REASONABLE_Y_VALUE} in inches")
 
     # Create a new DataFrame named anomalies_df that contains
     # only the rows where EITHER
-    # the age is TOO HIGH OR
-    # the height is TOO HIGH.
+    # the age is TOO LOW OR
+    # the height is TOO LOW.
     # A single pipe (|) is the OR operator in polars.
     # We will use greater than or equal to (>=) to find values at or above the threshold.
     anomalies_df: pl.DataFrame = df.filter(
-        (pl.col("age_years") >= MAX_REASONABLE_X_VALUE)
-        | (pl.col("height_inches") >= MAX_REASONABLE_Y_VALUE)
+        (pl.col("age_years") < MIN_REASONABLE_X_VALUE)
+        | (pl.col("height_inches") < MIN_REASONABLE_Y_VALUE)
     )
 
     LOG.info(f"Count of anomalies found: {anomalies_df.height}")
