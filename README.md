@@ -127,6 +127,8 @@ git push -u origin main
 
 </details>
 
+## Modifications
+- anomaly_detector_shelhamer.py - changed upper age threshold from 16.0 to 17.0
 ## Notes
 
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
