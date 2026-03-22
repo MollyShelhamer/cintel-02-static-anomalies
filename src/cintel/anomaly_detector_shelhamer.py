@@ -1,8 +1,8 @@
 """
 anomaly_detector_case.py - Project script (example).
 
-Author: Denise Case
-Date: 2026-03-07
+Author: Molly Shelhamer
+Date: 2026-03-22
 
 Static Data
 
@@ -21,12 +21,12 @@ Purpose
 
 Paths (relative to repo root)
 
-    INPUT FILE: data/clinic_data_case.csv
-    OUTPUT FILE: artifacts/anomalies_case.csv
+    INPUT FILE: data/clinic_data_shelhamer.csv
+    OUTPUT FILE: artifacts/anomalies_shelhamer.csv
 
 Terminal command to run this file from the root project folder
 
-    uv run python -m cintel.anomaly_detector_case
+    uv run python -m cintel.anomaly_detector_shelhamer
 
 OBS:
   Don't edit this file - it should remain a working example.
@@ -56,8 +56,8 @@ ARTIFACTS_DIR: Final[Path] = ROOT_DIR / "artifacts"
 
 # === DECLARE GLOBAL CONSTANTS FOR FILE PATHS ===
 
-DATA_FILE: Final[Path] = DATA_DIR / "clinic_data_case.csv"
-OUTPUT_FILE: Final[Path] = ARTIFACTS_DIR / "anomalies_case.csv"
+DATA_FILE: Final[Path] = DATA_DIR / "clinic_data_shelhamer.csv"
+OUTPUT_FILE: Final[Path] = ARTIFACTS_DIR / "anomalies_shelhamer.csv"
 
 
 # === DEFINE THE MAIN FUNCTION ===
@@ -114,7 +114,7 @@ def main() -> None:
     LOG.info("Studying children's ages and heights to find anomalies...")
 
     # x is age in years, so 16 is the upper limit for kids
-    MAX_REASONABLE_X_VALUE: Final[float] = 16.0
+    MAX_REASONABLE_X_VALUE: Final[float] = 17.0
 
     # y is height in inches, so maybe 6 feet (72 inches) is a reasonable upper limit
     MAX_REASONABLE_Y_VALUE: Final[float] = 72.0
