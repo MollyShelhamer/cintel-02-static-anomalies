@@ -129,6 +129,7 @@ git push -u origin main
 
 ## Modifications
 - anomaly_detector_shelhamer.py - added log message that lists anomalies found.
+- modified to account for adult statistics rather than pediatric.
 ## Notes
 
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
